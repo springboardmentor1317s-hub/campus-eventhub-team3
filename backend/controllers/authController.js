@@ -9,7 +9,7 @@ exports.registerUser = async (req, res) => {
 
     // Email exists?
     let user = await User.findOne({ email });
-    if (user) return res.status(400).json({ message: "यह Email पहले से मौजूद है" });
+    if (user) return res.status(400).json({ message: "Email " });
 
     // Password hash
     const salt = await bcrypt.genSalt(10);
@@ -33,10 +33,10 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "गलत Email या Password" });
+    if (!user) return res.status(400).json({ message: "Email या Password" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "गलत Email या Password" });
+    if (!isMatch) return res.status(400).json({ message: "Email या Password" });
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
@@ -50,9 +50,10 @@ exports.loginUser = async (req, res) => {
 exports.verifyUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
-    if (!user) return res.status(404).json({ message: "User नहीं मिला" });
+    if (!user) return res.status(404).json({ message: "User " });
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: "Unauthorized", error: error.message });
   }
 };
+
