@@ -16,9 +16,9 @@ const validate = (req, res, next) => {
 router.post(
   "/register",
   [
-    body("name").notEmpty().withMessage("Name जरूरी है"),
-    body("email").isEmail().withMessage("सही Email डालें"),
-    body("password").isLength({ min: 6 }).withMessage("Password कम से कम 6 Character होना चाहिए"),
+    body("name").notEmpty().withMessage("Name"),
+    body("email").isEmail().withMessage("Email"),
+    body("password").isLength({ min: 6 }).withMessage("Password "),
   ],
   validate,
   registerUser
@@ -28,8 +28,8 @@ router.post(
 router.post(
   "/login",
   [
-    body("email").isEmail().withMessage("सही Email डालें"),
-    body("password").notEmpty().withMessage("Password जरूरी है"),
+    body("email").isEmail().withMessage("Email "),
+    body("password").notEmpty().withMessage("Password "),
   ],
   validate,
   loginUser
@@ -39,3 +39,4 @@ router.post(
 router.get("/verify", authMiddleware, verifyUser);
 
 module.exports = router;
+
