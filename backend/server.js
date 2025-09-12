@@ -8,6 +8,10 @@ connectDB();
 const app = express();
 app.use(express.json());
 
+// Routes
+app.use("/api/auth", require("./routes/authRoutes"));
+
+
 app.get("/", (req, res) => {
   res.send("Campus EventHub Backend Running 🚀");
 });
