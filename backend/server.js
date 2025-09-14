@@ -8,12 +8,15 @@ connectDB();
 const app = express();
 app.use(express.json());
 
+
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/events", require("./routes/eventRoutes"));
+
 
 
 app.get("/", (req, res) => {
-  res.send("Campus EventHub Backend Running 🚀");
+  res.send("Campus EventHub Backend Running ");
 });
 
 const PORT = process.env.PORT || 5000;
